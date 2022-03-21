@@ -32,7 +32,7 @@ $stories = mysqli_fetch_all( $result, MYSQLI_ASSOC ); // get data
         
         <div class="container">
 
-            <h1 class="text-center">Stories's Almanac</h1>
+            <h1 class="text-center">Stories' Almanac</h1>
 
             <?php foreach ($stories as $story) : ?>
                 <div class="card mb-5 shadow">

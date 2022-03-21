@@ -1,0 +1,12 @@
+header {
+    background-color: rgb(152, 185, 247);
+}
+header .logo > a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* forms */
+form .form-label + i {
+    color: red;
+}

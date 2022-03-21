@@ -84,7 +84,7 @@ if ( $user_logged_in ) { // get user data
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="occupation" class="form-label">Occupation</label>
+                                        <label for="occupation" class="form-label">Ocupation</label>
                                         <input type="text" name="occupation" class="form-control" id="occupation" value="<?php echo $occupation ?? '' ?>">
                                     </div>
 

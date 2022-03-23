@@ -4,7 +4,7 @@ $request_url = basename( $_SERVER['REQUEST_URI'] ); ?>
 
 <header class="pt-1">
     <div class="container">
-        <p class="h1 mb-2 text-white text-center logo">
+        <p class="h1 my-2 text-white text-center logo">
             <a href="index.php">Aberdeen Tales</a>
         </p>
     </div> 
@@ -19,7 +19,7 @@ $request_url = basename( $_SERVER['REQUEST_URI'] ); ?>
                 <a class="nav-link<?php echo $request_url == 'index.php' ? ' active' : '' ?>" href="index.php">Facts about Scotland</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link<?php echo $request_url == 'useful.php' ? ' active' : '' ?>" href="usefull.php">Useful Information</a>
+                <a class="nav-link<?php echo $request_url == 'usefull.php' ? ' active' : '' ?>" href="usefull.php">Useful Information</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link<?php echo $request_url == 'storyteller.php' ? ' active' : '' ?>" href="storyteller.php">Top Attractions in Aberdeen</a>
@@ -45,8 +45,8 @@ $request_url = basename( $_SERVER['REQUEST_URI'] ); ?>
                 <?php endif; ?>
             <?php endif; ?>
         </ul>
-    </div>
-</nav>
+        </div>
+    </nav>
 </header>
 
 

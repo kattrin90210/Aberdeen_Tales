@@ -51,12 +51,7 @@ $request_url = basename( $_SERVER['REQUEST_URI'] ); ?>
 
 
 <?php 
-/* 
-display alerts
-
-alert - <primary, secondary, success, danger, warning, info, light, dark
-message - <html, text>
-*/
+/* display alerts */
 if ( isset( $_GET['alert'] ) && isset( $_GET['message'] ) ) : ?>
     <div class="container">
 

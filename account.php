@@ -8,7 +8,8 @@ $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
 if ( $user_logged_in ) { // get user data
     $user_id = $_SESSION['user_id'];
     $sql = "SELECT name, occupation, email, username, password FROM users WHERE id='$user_id'";
-    $result = mysqli_query( $bd, $sql ); // get user from database
+    $result = mysqli_query( $bd, $sql ); 
+    // get user from database
 
     if ( !$result ) {
         session_destroy(); // clear session
@@ -16,7 +17,8 @@ if ( $user_logged_in ) { // get user data
         header( 'location: account.php' ); // redirect to login form
     }
 
-    $rows = mysqli_fetch_all( $result, MYSQLI_ASSOC ); // get data 
+    $rows = mysqli_fetch_all( $result, MYSQLI_ASSOC ); 
+    // get data 
 
     list( 
         'name'       => $name, 
@@ -33,16 +35,14 @@ if ( $user_logged_in ) { // get user data
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
+        <?php
+        include ( 'head.php' ); ?>
 
         <title>Account</title>
-    </head>
+    </head>    
     <body>
         <?php 
+
         // get header
         include( 'header.php' ); ?>
         
@@ -59,7 +59,10 @@ if ( $user_logged_in ) { // get user data
                 <div class="col-6 offset-3">
                     <div class="card shadow my-3">
                         <div class="card-body">
+
                             <?php if ( !$user_id && !$action ) : ?>
+
+                                <!-- https://getbootstrap.com/docs/5.1/forms/overview/ -->
                                 <form method="POST" action="user.php">
                                     <div class="mb-3">
                                         <label for="login" class="form-label">Login</label><i>*</i>
@@ -77,6 +80,8 @@ if ( $user_logged_in ) { // get user data
                             <?php endif; ?>
 
                             <?php if ( $user_id || $action == 'registration' ) : ?>
+
+                                <!-- https://getbootstrap.com/docs/5.1/forms/overview/ -->
                                 <form method="POST" action="user.php">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label><i>*</i>
@@ -109,16 +114,13 @@ if ( $user_logged_in ) { // get user data
 
                                         <button type="submit" name="action" value="updateuser" class="btn btn-primary">Save</button>
                                         <a href="user.php?action=logout" class="btn btn-secondary">Log out</a>
-                                    <?php else : 
+                                    
+                                    <?php elseif ($action == 'registration') : 
                                         // if not authorized 
-                                        if ( $action == 'registration' ) : ?>
+                                    ?>
                                             <button type="submit" name="action" value="registration" class="btn btn-primary">Register</button>
                                             <a href="account.php" class="btn">Sign In</a>
-                                        <?php else : ?>
-                                            <button type="submit" name="action" value="authorization" class="btn btn-primary">Login</button>
-                                            <a href="account.php?action=registration" class="btn">Registration</a>
-                                        <?php endif;
-                                    endif; ?>
+                                        <?php endif; ?>
                                 </form>
                             <?php endif; ?>
                         </div>

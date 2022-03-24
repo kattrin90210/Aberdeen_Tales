@@ -62,7 +62,7 @@ switch ( $action ) {
         $author = (int) $_SESSION['user_id'];
         $image = isset( $_FILES['image']['name'] ) ? $_FILES['image']['name'] : '';
 
-
+    if ( $new_image ) {
         // delete uploaded image
         $sql = "SELECT image FROM stories WHERE id='$story_id'";
         $result = mysqli_query( $bd, $sql ); // get story from database
@@ -87,10 +87,12 @@ switch ( $action ) {
 
                 break;
             }
+
+            $image_url = $new_image;
         }
 
 
-        $sql = "UPDATE stories SET title='$title', image='$image', content='$content', status='$status' WHERE id='$story_id'";
+        $sql = "UPDATE stories SET title='$title', image='$image_url', content='$content', status='$status', date=now() WHERE id='$story_id'";
         $result = mysqli_query( $bd, $sql ); // insert user in database
     
         // create alert
@@ -101,7 +103,8 @@ switch ( $action ) {
 
         break;
 
-    case 'deletestory':
+case 'deletestory':
+
         $story_id = $_GET['story_id']; // extract variabless from POST data 
 
 
@@ -125,15 +128,51 @@ switch ( $action ) {
         // create alert
         $alert = $result == true ? 'success' : 'danger';
         $message = $result == true ? 'Story deleted successfully!' : 'Story delete error.';
+        $redirect = isset( $_GET['admin'] ) && $_GET['admin'] ? 'admin/index.php' : 'storyseeker.php'; // check admin location
 
-        header( 'location: storyseeker.php?alert=' . $alert . '&message=' . $message ); // redirect to authorization page
+        header( 'location: ' . $redirect . '?alert=' . $alert . '&message=' . $message ); // redirect to authorization page
 
         break;
+
+        case 'sendfeedback':
+            list(  
+                'name'    => $name,
+                'email'   => $email, 
+                'message' => $message
+            ) = $_POST; // extract variabless from POST data 
     
-    default:
-        header( 'Location: index.php' ); // redirect to authorization
-
-        break;
-}
-
-exit;
+            $sql = "INSERT INTO feedback (`name`, `email`, `message`, `date`) VALUES ('$name', '$email', '$message', now())";
+            $result = mysqli_query( $bd, $sql );
+        
+            // create alert
+            $alert = $result == true ? 'success' : 'danger';
+            $message = $result == true ? 'Message sent successfully!' : 'Failed to send message.';
+    
+            header( 'location: feedback.php?alert=' . $alert . '&message=' . $message ); // redirect to feedback page
+    
+            break;
+    
+        case 'deletefeedback':
+            $message_id = $_GET['message_id'];
+    
+            // delete feedback from database
+            $sql = "DELETE FROM feedback WHERE id='$message_id'";
+            $result = mysqli_query( $bd, $sql );
+        
+            // create alert
+            $alert = $result == true ? 'success' : 'danger';
+            $message = $result == true ? 'Message deleted successfully!' : 'Message delete error.';
+    
+            header( 'location: admin/feedback.php?alert=' . $alert . '&message=' . $message ); // redirect to authorization page
+    
+            break;
+        
+        default:
+            header( 'Location: index.php' ); // redirect to authorization
+    
+            break;
+    }
+    
+    exit;
+    
+ 

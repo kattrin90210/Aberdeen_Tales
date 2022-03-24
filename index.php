@@ -1,48 +1,76 @@
 <?php 
 // include database functions
-include( 'db.php' ); ?>
+include( 'db.php' );
+
+
+$sql = "SELECT * 
+FROM stories 
+WHERE status='publish' 
+ORDER BY date DESC 
+LIMIT 8"; // get publish only
+
+$result = mysqli_query( $bd, $sql ); // get stories from database
+
+$stories = mysqli_fetch_all( $result, MYSQLI_ASSOC ); // get data 
+
+// get authors
+if ( $stories ) {
+    $author_ids = array_column( $stories, 'author' ); // extract ids from user array
+    $author_ids = array_unique( $author_ids );
+    $author_ids = implode( "','", $author_ids ); // get authors ids
+
+    $sql = "SELECT id, name FROM users WHERE id IN ('$author_ids')";
+
+    $result = mysqli_query( $bd, $sql ); // get author from database
+    $authors = mysqli_fetch_all( $result, MYSQLI_ASSOC );
+} ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php 
+        // get head 
+        include( 'head.php' ); ?>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
-
-        <title>Hello, world!</title>
+        <title>Aberdeen Tales</title>
     </head>
     <body>
-        <?php 
+    <?php 
         // get header
         include( 'header.php' ); ?>
-        
-        <div class="container">
-            <?php 
-            // display content loop
-            $count = 1;
 
-            while ($count <= 10) : ?>
-                <div class="card mb-5 shadow">
-                    <div class="row g-0">
-                        <div class="col-3">
-                            <img src="./images/media1.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
+<div class="container">
 
-                        <div class="col-9">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                
+<div class="row mt-5 story-list">
+                <?php foreach ($stories as $story) :
+                    $author = $authors[ array_search( $story['author'], array_column( $authors, 'id' ) ) ]; ?>
+
+                    <div class="col-6">
+                        <div class="card mb-5 shadow">
+                            <div class="row g-0">
+                                <div class="col-4">
+                                    <img src="<?php echo $story['image'] ? 'images/' . $story['image'] : 'images/media1.jpg' ?>" class="img-fluid rounded-start">
+                                </div>
+
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><a href="storyseeker.php?story_id=<?php echo $story['id'] ?>"><?php echo $story['title'] ?></a>
+                                            <?php if ( $story['status'] == 'draft' ) : ?>
+                                                <span class="badge bg-warning text-dark">Draft</span>
+                                            <?php endif; ?>
+                                        </h5>
+                                        <p class="card-text mb-1 text-secondary"><small><?php echo $story['date'] ?> | <i><?php echo $author['name'] ?></i></small></p>
+                                        <p class="card-text"><?php echo mb_strimwidth( $story['content'], 0, 100, '...' ) ?></p>
+
+                                        <a href="storyseeker.php?story_id=<?php echo $story['id'] ?>" class="btn btn-outline-primary btn-sm">Read more</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php 
-            // counter increment
-            $count++;
-            endwhile; ?>
+                <?php endforeach; ?>
+            </div>
 
         </div>
 
@@ -53,3 +81,5 @@ include( 'db.php' ); ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
+
+        

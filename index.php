@@ -41,12 +41,13 @@ if ( $stories ) {
         include( 'header.php' ); ?>
 
 <div class="container">
-
+      <!-- https://getbootstrap.com/docs/5.1/layout/columns/ -->
 <div class="row mt-5 story-list">
                 <?php foreach ($stories as $story) :
                     $author = $authors[ array_search( $story['author'], array_column( $authors, 'id' ) ) ]; ?>
 
                     <div class="col-6">
+                        <!-- https://getbootstrap.com/docs/5.1/components/card/ -->
                         <div class="card mb-5 shadow">
                             <div class="row g-0">
                                 <div class="col-4">

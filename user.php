@@ -24,7 +24,6 @@ switch ( $action ) {
     
         $result = mysqli_query( $bd, $sql ); // insert user in database
 
-    
         // create alert
         $alert = $result == true ? 'success' : 'danger';
         $message = $result == true ? 'User ' . $username . ' successfully registered. Log in using your username and password.' : 'User registration error.';
@@ -39,7 +38,7 @@ switch ( $action ) {
             'password' => $password 
         ) = $_POST; // extract variabless from POST data
 
-        $sql = "SELECT id FROM users WHERE username='$username' AND password='$password'";
+        $sql = "SELECT id, admin FROM users WHERE username='$username' AND password='$password'";
 
         $result = mysqli_query( $bd, $sql ); // get user from database
         $rows = mysqli_fetch_all( $result, MYSQLI_ASSOC ); // get data 
@@ -53,6 +52,7 @@ switch ( $action ) {
             foreach ($rows as $row) {
                 if ( isset( $row['id'] ) && (int) $row['id'] > 0 ) {
                     $_SESSION['user_id'] = (int) $row['id']; // set user ID to session
+                    $_SESSION['admin'] = (bool) $row['admin']; // set admin flag
                 }
             }
         }
@@ -82,7 +82,22 @@ switch ( $action ) {
 
         break;
 
-    case 'logout': // loguot user
+    case 'deleteuser': // delete user
+        $user_id = $_GET['user_id'];
+    
+        // delete user from database
+        $sql = "DELETE FROM users WHERE id='$user_id'";
+        $result = mysqli_query( $bd, $sql );
+        
+        // create alert
+        $alert = $result == true ? 'success' : 'danger';
+        $message = $result == true ? 'User deleted successfully!' : 'User delete error.';
+    
+        header( 'location: admin/users.php?alert=' . $alert . '&message=' . $message );
+
+        break;
+
+    case 'logout': // logout user
         session_destroy(); // clear session
 
         header( 'location: account.php' ); // redirect to login form

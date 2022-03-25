@@ -14,7 +14,7 @@ if ( $action == 'editstory' && isset( $_GET['story_id'] ) ) {
     $sql = "SELECT * FROM stories WHERE id='$story_id'";
     $result = mysqli_query( $bd, $sql ); // get story from database
 
-    $rows = mysqli_fetch_all( $result, MYSQLI_ASSOC ); // get data 
+    $rows = mysqli_fetch_all( $result, MYSQLI_ASSOC );
 
     list( 
         'title'   => $title, 
@@ -46,7 +46,7 @@ if ( $action == 'editstory' && isset( $_GET['story_id'] ) ) {
         <div class="container">
 
         <h1 class="text-center mt-4"><?php echo isset( $title ) ? 'Edit your story!' : 'Share your story!' ?></h1>
-
+<!--https://getbootstrap.com/docs/5.1/forms/overview/-->
             <form method="POST" action="story.php" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label><i>*</i>

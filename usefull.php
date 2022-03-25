@@ -29,6 +29,7 @@ include( 'db.php' ); ?>
         </div>
         
         <div class="container">
+        <!--https://getbootstrap.com/docs/5.1/layout/columns/-->
             <div class="row align-items-md-stretch g-0">
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-white bg-dark">

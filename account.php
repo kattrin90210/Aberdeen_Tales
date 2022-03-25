@@ -5,6 +5,7 @@ include( 'db.php' );
 $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
 
 
+
 if ( $user_logged_in ) { // get user data
     $user_id = $_SESSION['user_id'];
     $sql = "SELECT name, occupation, email, username, password FROM users WHERE id='$user_id'";

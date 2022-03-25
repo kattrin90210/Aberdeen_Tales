@@ -22,11 +22,11 @@ switch ( $action ) {
         ) = $_POST; // extract variabless from POST data 
 
         $author = (int) $_SESSION['user_id'];
-        $image = isset( $_FILES['image']['name'] ) ? $_FILES['image']['name'] : ''; 
+        $new_image = isset( $_FILES['image']['name'] ) ? $_FILES['image']['name'] : '';
 
 
         // upload image
-        if ( $image ) {
+        if ( $new_image ) {
             if ( !move_uploaded_file( $_FILES['image']['tmp_name'], 'images/' . basename( $_FILES['image']['name'] ) ) ) {
                 // error upload image
                 $alert = 'danger';
@@ -39,10 +39,9 @@ switch ( $action ) {
         }
        
         
-        $sql = "INSERT INTO stories (`title`, `author`, `image`, `content`, `status`, `date`) VALUES ('$title', '$author', '$image', '$content', '$status', now())";
+        $sql = "INSERT INTO stories (`title`, `author`, `image`, `content`, `status`, `date`) VALUES ('$title', '$author', '$new_image', '$content', '$status', now())";
         $result = mysqli_query( $bd, $sql ); // insert user in database
     
-
         // create alert
         $alert = $result == true ? 'success' : 'danger';
         $message = $result == true ? 'Your story has been successfully updated.' : 'An error has occurred.';
@@ -55,15 +54,17 @@ switch ( $action ) {
         list(  
             'id'      => $story_id,
             'title'   => $title, 
+            'image'   => $image_url,
             'content' => $content,
             'status'  => $status 
         ) = $_POST; // extract variabless from POST data 
 
         $author = (int) $_SESSION['user_id'];
-        $image = isset( $_FILES['image']['name'] ) ? $_FILES['image']['name'] : '';
+        $new_image = isset( $_FILES['image']['name'] ) ? $_FILES['image']['name'] : '';
 
-    if ( $new_image ) {
-        // delete uploaded image
+
+        if ( $new_image ) {
+        // delete old uploaded image
         $sql = "SELECT image FROM stories WHERE id='$story_id'";
         $result = mysqli_query( $bd, $sql ); // get story from database
     
@@ -75,9 +76,7 @@ switch ( $action ) {
             unlink( 'images/' . $old_image ); // delete old image
         }
 
-
         // upload new image
-        if ( $image ) {
             if ( !move_uploaded_file( $_FILES['image']['tmp_name'], 'images/' . basename( $_FILES['image']['name'] ) ) ) {
                 // error upload image
                 $alert = 'danger';
@@ -93,7 +92,7 @@ switch ( $action ) {
 
 
         $sql = "UPDATE stories SET title='$title', image='$image_url', content='$content', status='$status', date=now() WHERE id='$story_id'";
-        $result = mysqli_query( $bd, $sql ); // insert user in database
+        $result = mysqli_query( $bd, $sql ); 
     
         // create alert
         $alert = $result == true ? 'success' : 'danger';
@@ -104,9 +103,7 @@ switch ( $action ) {
         break;
 
     case 'deletestory':
-
-            $story_id = $_GET['story_id']; // extract variabless from POST data 
-
+        $story_id = $_GET['story_id']; 
 
         // delete uploaded image
         $sql = "SELECT image FROM stories WHERE id='$story_id'";
@@ -123,7 +120,7 @@ switch ( $action ) {
 
         // delete story from database
         $sql = "DELETE FROM stories WHERE id='$story_id'";
-        $result = mysqli_query( $bd, $sql ); // insert user in database
+        $result = mysqli_query( $bd, $sql ); 
     
         // create alert
         $alert = $result == true ? 'success' : 'danger';
@@ -174,5 +171,3 @@ switch ( $action ) {
     }
     
     exit;
-    
- 

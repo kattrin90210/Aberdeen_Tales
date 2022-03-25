@@ -53,11 +53,13 @@ if ( $stories ) {
                 </p>
         </div>
 
+        <!--https://getbootstrap.com/docs/5.1/layout/columns/-->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
         <?php foreach ($stories as $story) :
                     $author = $authors[ array_search( $story['author'], array_column( $authors, 'id' ) ) ]; ?>
             <div class="col">
+                <!--https://getbootstrap.com/docs/5.1/components/card/-->
                 <div class="card shadow-sm">
                     <img src="<?php echo $story['image'] ? 'images/' . $story['image'] : 'images/media1.jpg' ?>" class="img-fluid">
 

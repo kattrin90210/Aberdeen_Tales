@@ -119,7 +119,7 @@ $story = $story_id && $stories ? array_shift( $stories ) : null; // extract firs
                 <div class="story-list">
                     <?php foreach ($stories as $story) : 
                         $author = $authors[ array_search( $story['author'], array_column( $authors, 'id' ) ) ]; ?>
-                        <!-- bootstrap card template -->
+                        <!--https://getbootstrap.com/docs/5.1/components/card/-->
                         <div class="card mb-5 shadow">
                             <div class="row g-0">
                                 <div class="col-4">

@@ -34,7 +34,7 @@ if ( $action == 'editstory' && isset( $_GET['story_id'] ) ) {
     <head>
     <?php 
         // get head 
-        include( 'head.php' ); ?>
+        include( 'head.html' ); ?>
 
         <title>Share your story!</title>
     </head>

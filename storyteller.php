@@ -29,7 +29,7 @@ if ( $stories ) {
     <head>
     <?php 
         // get head 
-        include( 'head.php' ); ?>
+        include( 'head.html' ); ?>
 
         <title>Run the Story</title>
     </head>

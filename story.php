@@ -103,9 +103,9 @@ switch ( $action ) {
 
         break;
 
-case 'deletestory':
+    case 'deletestory':
 
-        $story_id = $_GET['story_id']; // extract variabless from POST data 
+            $story_id = $_GET['story_id']; // extract variabless from POST data 
 
 
         // delete uploaded image

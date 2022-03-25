@@ -7,7 +7,7 @@ include( 'db.php' ); ?>
     <head>
         <?php 
         // get head 
-        include( 'head.php' ); ?>
+        include( 'head.html' ); ?>
 
         <title>Usefull nformation</title>
     </head>

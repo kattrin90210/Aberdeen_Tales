@@ -55,7 +55,7 @@ $story = $story_id && $stories ? array_shift( $stories ) : null; // extract firs
     <head>
         <?php 
         // get head 
-        include( 'head.php' ); ?>
+        include( 'head.html' ); ?>
 
         <title>Stories's Almanac</title>
     </head>

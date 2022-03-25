@@ -31,7 +31,7 @@ if ( $stories ) {
     <head>
     <?php 
         // get head 
-        include( 'head.php' ); ?>
+        include( 'head.html' ); ?>
 
         <title>Aberdeen Tales</title>
     </head>

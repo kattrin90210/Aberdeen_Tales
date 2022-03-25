@@ -20,7 +20,7 @@ if ( $user_logged_in ) {
     <head>
         <?php 
         // get head 
-        include( 'head.php' ); ?>
+        include( 'head.html' ); ?>
 
 <title>Feedback</title>
     </head>

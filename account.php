@@ -36,7 +36,7 @@ if ( $user_logged_in ) { // get user data
 <html lang="en">
     <head>
         <?php
-        include ( 'head.php' ); ?>
+        include ( 'head.html' ); ?>
 
         <title>Account</title>
     </head>    
@@ -120,7 +120,7 @@ if ( $user_logged_in ) { // get user data
                                     ?>
                                             <button type="submit" name="action" value="registration" class="btn btn-primary">Register</button>
                                             <a href="account.php" class="btn">Sign In</a>
-                                        <?php endif; ?>
+                                        <?php endif;?>
                                 </form>
                             <?php endif; ?>
                         </div>

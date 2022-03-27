@@ -9,7 +9,7 @@ include( 'db.php' ); ?>
         // get head 
         include( 'head.html' ); ?>
 
-        <title>Usefull nformation</title>
+        <title>Useful nformation</title>
     </head>
     <body>
         <?php 
@@ -18,7 +18,7 @@ include( 'db.php' ); ?>
 
         <div class="position-relative overflow-hidden p-5 text-center bg-dark cover" style="background: url(images/cover-1.jpg) center / cover no-repeat">
             <div class="col-5 mx-auto my-5 text-white position-relative">
-                <h1 class="display-4 fw-normal">Usefull information</h1>
+                <h1 class="display-4 fw-normal">Useful information</h1>
                 <p class="lead fw-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac laoreet diam. Duis vel ipsum id orci molestie finibus ac id purus. Donec laoreet metus erat, vitae rhoncus nunc efficitur non.</p>
                 <a class="btn btn-outline-light" href="storyseeker.php">Go to stories</a>
             </div>
